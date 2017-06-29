@@ -21,6 +21,12 @@ $ composer run-script --working-dir=vendor/felixfbecker/language-server parse-st
 $ php run.php
 ```
 
+Want spam?
+
+```
+$ php run.php -v
+```
+
 ## Requirements
 
 PHP 7.0+
