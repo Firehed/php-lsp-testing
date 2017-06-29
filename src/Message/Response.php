@@ -26,4 +26,9 @@ class Response implements Message
             'error' => $this->error,
         ];
     }
+
+    public function getResult()
+    {
+        return $this->result;
+    }
 }

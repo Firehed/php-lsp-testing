@@ -90,6 +90,10 @@ class Process
         $len = (int) $headers['Content-Length'] ?? 0;
         $jsonBody = fread($pipe, $len);
         $data = json_decode($jsonBody, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            $this->logger->error("Invalid JSON response");
+            return;
+        }
 
         if (array_key_exists('id', $data)) {
             if (array_key_exists('result', $data) || array_key_exists('error', $data)) {

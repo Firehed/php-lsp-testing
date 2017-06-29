@@ -28,14 +28,10 @@ $init = Message\Request::factory('initialize', [
 ]);
 $proc->write($init);
 
-// Register a callback to handle inbound messages. In a more useful context,
-// you'd do something more than log them. Possibly respond with a new one
-$proc->onRead(function (Message\Message $message) use ($logger, $proc) {
-    if ($message->getMethod() !== 'window/logMessage') {
-        $logger->info($message);
-    }
-    // Send a message back? $proc->write($formattedMessage);
-});
+// Register a callback to handle inbound messages. See
+// src/ResponseHandler::__invoke
+$handler = new ResponseHandler($proc, $logger);
+$proc->onRead($handler);
 
 // Infinite loop, reading out of the subprocess's STDOUT for messages that it
 // sends. Any time one is received, it will fire the above callback.
