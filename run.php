@@ -1,10 +1,20 @@
 <?php
 declare(strict_types=1);
+
 namespace Firehed\LSP;
+
+use Psr\Log\LogLevel;
 
 require_once 'vendor/autoload.php';
 
-$logger = new Logger(\Psr\Log\LogLevel::INFO);
+$opts = getopt('v');
+if (isset($opts['v'])) {
+    $level = LogLevel::DEBUG;
+} else {
+    $level = LogLevel::INFO;
+}
+
+$logger = new Logger($level);
 $proc = new Process($_SERVER['_'] . ' vendor/bin/php-language-server.php', $logger);
 
 $init = Message\Request::factory('initialize', [
