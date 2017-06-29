@@ -1,0 +1,14 @@
+{
+    "autoload": {
+      "psr-4": {
+        "Firehed\\LSP\\": "src"
+      }
+    },
+    "require-dev": {
+        "felixfbecker/language-server": "dev-master"
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "psr/log": "^1.0@dev"
+    }
+}
