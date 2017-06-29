@@ -53,7 +53,7 @@ class Process
         while (true) {
             $message = $this->readMessageFromStdout();
             if ($message) {
-                $this->logger->debug('<<< ' . $message);
+                $this->logger->debug('<<< ' . $message->format());
                 if ($this->onRead) {
                     ($this->onRead)($message);
                 }
@@ -103,6 +103,7 @@ class Process
             return new Message\Notification($data['method'], $data['params'] ?? null);
         }
 
+        // Malformed message, probably.
         var_dump($data);
         return;
     }
