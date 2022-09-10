@@ -18,6 +18,10 @@ class Logger extends AbstractLogger
         if (self::getLevel($level) > $this->level) {
             return;
         }
+        $dec = json_decode((string)$message, true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            $message = json_encode($dec, JSON_PRETTY_PRINT);
+        }
 
         fwrite(STDOUT, $message."\n");
     }

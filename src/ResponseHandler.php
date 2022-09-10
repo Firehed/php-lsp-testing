@@ -7,6 +7,9 @@ use Psr\Log\LoggerInterface;
 
 class ResponseHandler
 {
+
+    const FILE = __DIR__.'/../../../slantsearch/src/Response.php';
+
     private $log;
     private $process;
 
@@ -39,10 +42,10 @@ class ResponseHandler
         if ($this->gotInitializeResponse && !$this->sentDidOpen) {
             $open = Message\Request::factory('textDocument/didOpen', [
                 'textDocument' => [
-                    'uri' => realpath('goodfile.php'),
+                    'uri' => 'file://'.realpath(self::FILE),
                     'languageId' => 'php',
                     'version' => $this->version++,
-                    'text' => file_get_contents('goodfile.php'),
+                    'text' => file_get_contents(self::FILE),
                 ],
             ]);
             $this->process->write($open);
@@ -55,12 +58,12 @@ class ResponseHandler
         if (random_int(1, 50) === 1) {
             $changed = Message\Request::factory('textDocument/didChange', [
                 'textDocument' => [
-                    'uri' => realpath('goodfile.php'),
+                    'uri' => realpath('.php'),
                     'version' => $this->version++,
                 ],
                 'contentChanges' => [
                     [
-                        'text' => file_get_contents('goodfile.php'),
+                        'text' => file_get_contents(self::FILE),
                     ],
                 ],
             ]);

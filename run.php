@@ -18,11 +18,11 @@ $logger = new Logger($level);
 
 // Open subprocess which starts the language server. We will communicate it via
 // STDIN and STDOUT
-$proc = new Process($_SERVER['_'] . ' vendor/bin/php-language-server.php', $logger);
+$proc = new Process($_SERVER['_'] . ' ../../slantsearch/vendor/bin/phan --language-server-verbose --language-server-on-stdin', $logger);
 
 // Format and send the initialize message
 $init = Message\Request::factory('initialize', [
-    'rootPath' => getcwd(),
+    'rootPath' => realpath(__DIR__.'/../../slantsearch'),
     'processId' => getmypid(),
     'capabilities' => (object)[],
 ]);
